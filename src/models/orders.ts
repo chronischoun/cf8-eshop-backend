@@ -3,7 +3,7 @@ import { Schema, model, Document, Types } from "mongoose";
 import products from "./products";
 
 interface OrdersItem {
-  product: Types.ObjectId;
+  products: Types.ObjectId | any ;
   title: string;
   author: string;
   quantity: number;

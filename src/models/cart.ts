@@ -2,8 +2,10 @@
 import { Schema, model, Document, Types } from "mongoose";
 
 interface CartItem {
+  _id?: Types.ObjectId;
   product: Types.ObjectId;
   quantity: number;
+
 }
 
 export interface ICart extends Document {
