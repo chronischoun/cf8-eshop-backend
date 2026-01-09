@@ -50,6 +50,8 @@ export const updateProduct = async (req: Request, res: Response) => {
 
 // DELETE product
 export const deleteProduct = async (req: Request, res: Response) => {
+  console.log("User sent ID:", req.params.id);
+  console.log("Authorization Token:", req.headers['authorization']);
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
     if (!deletedProduct) return res.status(404).json({ message: "Product not found" });

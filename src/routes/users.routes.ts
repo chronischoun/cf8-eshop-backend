@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { protect, adminOnly } from "../middlewares/auth.middlewares";
 import { 
   createUser, 
   getUsers, 
@@ -9,10 +10,18 @@ import {
 
 const router = Router();
 
-router.post("/", createUser);       // Create user
-router.get("/", getUsers);          // Get all users
-router.get("/:id", getUserById);    // Get user by id
-router.put("/:id", updateUser);     // Update user by id
-router.delete("/:id", deleteUser);  // Delete user by id
+
+// admin only
+router.post("/", protect, adminOnly, createUser);
+router.get("/", protect, adminOnly, getUsers);
+
+// logged in user (self) OR admin
+router.get("/:id", protect, getUserById);
+router.put("/:id", protect, updateUser);
+
+// safest: admin only
+router.delete("/:id", protect, adminOnly, deleteUser);
+
+
 
 export default router;

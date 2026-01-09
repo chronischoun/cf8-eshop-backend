@@ -13,7 +13,7 @@ const UserSchema = new Schema<Iusers>({
   role: { type: String, enum: ["user", "admin"], default: "user" }
 }, { timestamps: true }); 
 
-UserSchema.pre("save", async function (next) {
+UserSchema.pre("save", async function () {
   if (!this.isModified("password")) return;  //New password or not
   
   this.password = await bcrypt.hash(this.password, 10);

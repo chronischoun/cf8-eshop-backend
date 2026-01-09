@@ -18,4 +18,4 @@ const ProductSchema = new Schema<IProducts>({
   image: String
 }, { timestamps: true });
 
-export default model<IProducts>("Product", ProductSchema);
+export default model<IProducts>("Products", ProductSchema);
