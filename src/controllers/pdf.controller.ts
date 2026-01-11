@@ -10,19 +10,26 @@ export const uploadPdfController = async (
       return res.status(400).json({ message: "No PDF uploaded" });
     }
 
+   
+    const publicUrl = `/uploads/${req.file.filename}`;
+
     const pdf = await PdfModel.create({
       originalName: req.file.originalname,
       filename: req.file.filename,
-      path: req.file.path,
+      path: publicUrl, 
       size: req.file.size,
       mimetype: req.file.mimetype,
     });
 
     res.status(201).json({
       message: "PDF uploaded successfully",
-      pdf,
+      pdf: {
+        ...pdf.toObject(),
+        url: `http://localhost:3000${publicUrl}` // Προσθήκη πλήρους link για ευκολία
+      },
     });
   } catch (error) {
+    console.error("Upload Error:", error); // Πάντα log το error για να ξέρεις τι φταίει
     res.status(500).json({ message: "PDF upload failed" });
   }
 };
