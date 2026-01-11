@@ -1,6 +1,7 @@
 import { Schema, model, Document } from "mongoose"; 
 import bcrypt from "bcryptjs";
 export interface Iusers extends Document { 
+  name: string ; 
   email: string ; 
   password: string; 
   role: "user" | "admin" ; 
@@ -8,6 +9,7 @@ export interface Iusers extends Document {
   comparePassword(password: string): Promise<boolean>;
 }
 const UserSchema = new Schema<Iusers>({
+  
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ["user", "admin"], default: "user" }
