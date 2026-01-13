@@ -34,7 +34,7 @@ const options: swaggerJsdoc.Options = {
       },
     },
   },
-  // Swagger θα διαβάσει τα routes από εδώ και θα πάρει τα JSDoc σχόλια
+  
   apis: ['./src/routes/*.ts'],
 };
 
