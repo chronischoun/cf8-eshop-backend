@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import path from "path";
 import swaggerUi from 'swagger-ui-express';
 import { specs } from './utils/swagger';
@@ -9,6 +10,11 @@ import userRoutes from "./routes/users.routes";
 import pdfRoutes from "./routes/pdf.routes";
 
 const app = express();
+app.use(cors({
+  origin: "http://localhost:4200", 
+  exposedHeaders: ['Content-Length', 'Accept-Ranges']
+}));
+
 
 // JSON Middleware 
 app.use(express.json());
@@ -17,10 +23,9 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 //  Static files
-app.use(
-  "/uploads",
-  express.static(path.join(process.cwd(), "src/utils/uploads"))
-);
+
+app.use("/uploads", express.static(path.join(__dirname, "../src/utils/uploads/pdfs")));
+
 
 // API Routes
 app.use("/api/auth", authRoutes);
